@@ -11,28 +11,28 @@
 
 Console.Clear();
 
-int[,] FillMatrix(int[,] matr) // метод заполнения и вывода на экран матрицы
+int[,] FillMatrix(int[,] matr) // метод заполнения и вывода на экран матрицы со случайно сгенерированными числами
 {
     Random rnd = new Random();
     for (int i = 0; i < matr.GetLength(0); i++)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
         {
-            matr[i, j] = rnd.Next(0, 11);            
+            matr[i, j] = rnd.Next(0, 11);// присвоение элементу матрицы значения от 0 до 10            
         }
         Console.WriteLine();
     }
     return matr;
 }
 
-int[,] SortMatrix(int[,] matr)
+int[,] SortMatrix(int[,] matr) // метод сортировки матрицы по строкам
 {
     for (int i = 0; i < matr.GetLength(0); i++)
     {
         int max = matr[i, 0];
         for (int j = 0; j < matr.GetLength(1); j++)
         {
-            for (int n = 0; n <  matr.GetLength(1) - j - 1; n++)
+            for (int n = 0; n <  matr.GetLength(1) - j - 1; n++) // реализация пузырковой сортировки
             {
                 if (matr[i, n] < matr[i, n + 1])
                 {
@@ -41,13 +41,12 @@ int[,] SortMatrix(int[,] matr)
                     matr[i, n] = max;
                 }
             }
-        }
-        
+        }        
     }
     return matr;
 }
 
-void PrintMatrix(int[,] matr) // метод заполнения и вывода на экран матрицы{
+void PrintMatrix(int[,] matr) // метод заполнения и вывода на экран матрицы
 {
     for (int i = 0; i < matr.GetLength(0); i++)
     {
@@ -61,7 +60,7 @@ void PrintMatrix(int[,] matr) // метод заполнения и вывода
 
 int[,] matrix = new int[4, 4];
 matrix = FillMatrix(matrix); // заполнение массива случайными числами и возвращенеие результата
-PrintMatrix(matrix);
+PrintMatrix(matrix); // вывод сгенерированной матрицы на экран
 Console.WriteLine();
 matrix = SortMatrix(matrix);
-PrintMatrix(matrix);
+PrintMatrix(matrix); // вывод отсортированной матрицы
