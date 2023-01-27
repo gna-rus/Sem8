@@ -24,7 +24,7 @@ int[,] FillMatrix(int[,] matr) // метод заполнения  матриц�
 }
 
 
-void PrintMatrix(int[,] matr) // метод заполнения и вывода на экран матрицы
+void PrintMatrix(int[,] matr) // метод вывода на экран матрицы
 {
     for (int i = 0; i < matr.GetLength(0); i++)
     {
@@ -36,7 +36,7 @@ void PrintMatrix(int[,] matr) // метод заполнения и вывода
     }
 }
 
-int FinadMinImMatrix(int[,] matr)
+int FinadMinImMatrix(int[,] matr) // метод поиска строки матрицы с минимальной суммой
 {
     int[] arr = new int[4];
     int MinLine = 0, countForNumberLine = 0; // обьявляются переменная для минимальной суммы и счетчика номеров строк
@@ -44,7 +44,7 @@ int FinadMinImMatrix(int[,] matr)
     {
         MinLine += matr[0, i];
     }
-    
+
     for (int i = 1; i < matr.GetLength(0); i++)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
