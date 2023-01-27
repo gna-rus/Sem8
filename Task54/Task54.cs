@@ -11,14 +11,14 @@
 
 Console.Clear();
 
-int[,] FillMatrix(int[,] matr) // метод заполнения и вывода на экран матрицы со случайно сгенерированными числами
+int[,] FillMatrix(int[,] matr) // метод заполнения  матрицы случайно сгенерированными числами
 {
     Random rnd = new Random();
     for (int i = 0; i < matr.GetLength(0); i++)
     {
         for (int j = 0; j < matr.GetLength(1); j++)
         {
-            matr[i, j] = rnd.Next(0, 11);// присвоение элементу матрицы значения от 0 до 10            
+            matr[i, j] = rnd.Next(0, 11); // присвоение элементу матрицы значения от 0 до 10            
         }
         Console.WriteLine();
     }
@@ -32,7 +32,7 @@ int[,] SortMatrix(int[,] matr) // метод сортировки матрицы
         int max = matr[i, 0];
         for (int j = 0; j < matr.GetLength(1); j++)
         {
-            for (int n = 0; n <  matr.GetLength(1) - j - 1; n++) // реализация пузырковой сортировки
+            for (int n = 0; n < matr.GetLength(1) - j - 1; n++) // реализация пузырковой сортировки
             {
                 if (matr[i, n] < matr[i, n + 1])
                 {
@@ -41,7 +41,7 @@ int[,] SortMatrix(int[,] matr) // метод сортировки матрицы
                     matr[i, n] = max;
                 }
             }
-        }        
+        }
     }
     return matr;
 }
