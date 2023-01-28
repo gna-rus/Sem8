@@ -7,6 +7,19 @@
 
 Console.Clear();
 
+int InputNumber(string Logo) // метод ввод числа
+{
+    int num;
+    while (true)
+    {
+        Console.WriteLine(Logo);
+        if (int.TryParse(Console.ReadLine(), out num))
+            break;
+        Console.WriteLine("Ошибка ввода");
+    }
+    return num;
+}
+
 void PrintMatrix(int[,] matr) // метод вывода на экран матрицы
 {
     for (int i = 0; i < matr.GetLength(0); i++)
@@ -19,39 +32,38 @@ void PrintMatrix(int[,] matr) // метод вывода на экран мат�
     }
 }
 
-int[,] FillMatrixSize(int[,] matr, int row, int colm, int count)
+int[,] FillMatrixSize(int[,] matr) //заполнение матрицы по спирали
 {
+    int lenMatr = matr.GetLength(0) * matr.GetLength(1);
+    int row = 0; // заполняет матрицу начиная с позиции 0,0
+    int col = 0;
+    int dx = 1;
+    int dy = 0;
+    int dirChanges = 0;
+    int vis = matr.GetLength(1);
 
-    count++;
-
-    if ((colm < matr.GetLength(1) - 2) & (matr[row, colm + 1] == 0))
+    for (int i = 1; i < lenMatr + 1; i++) // цикл заполнения
     {
-        matr[row, colm+1] = count;
-        FillMatrixSize(matr, row, colm + 1, count);
-    }
+        matr[row, col] = i;
+        if (--vis == 0)
+        {
+            vis = matr.GetLength(1) * (dirChanges % 2) + matr.GetLength(0) * ((dirChanges + 1) % 2) - (dirChanges / 2 - 1) - 2; // формуза заполнения матрицы
+            int temp = dx;
+            dx = -dy;
+            dy = temp;
+            dirChanges++;
+        }
 
-    else if ((row < matr.GetLength(0) - 2) & (matr[row + 1, colm] == 0))
-    {
-        matr[row+1, colm] = count;
-        FillMatrixSize(matr, row + 1, colm, count);
+        col += dx;
+        row += dy;
     }
-
-    else if ((colm > 1) & (matr[row, colm - 1] == 0))
-    {
-        matr[row, colm-1] = count;
-        FillMatrixSize(matr, row, colm - 1, count);
-    }
-
-    else if ((row > 1) & (matr[row-1, colm] == 0))
-    {
-        matr[row-1, colm] = count;
-        FillMatrixSize(matr, row-1, colm , count);
-    }
-
     return matr;
 }
 
-int[,] matrix = new int[8, 8];
+int colm = InputNumber("Введите количество столбцов"); // ввод размерностей матрицы
+int row = InputNumber("Введите количество строк");
+
+int[,] matrix = new int[row, colm];
 int count = 0;
-matrix = FillMatrixSize(matrix, 0, 0, count);
+matrix = FillMatrixSize(matrix); // заполняем матрицу по спирали
 PrintMatrix(matrix);
