@@ -21,27 +21,32 @@ void PrintMatrix(int[,] matr) // метод вывода на экран мат�
 
 int[,] FillMatrixSize(int[,] matr, int row, int colm, int count)
 {
-    
-        matr[row, colm] = count;
-        count++;
 
-        if ((colm < matr.GetLength(0) - 2) & (matr[row, colm+1] == 0))
-        {
-            FillMatrixSize(matr, row, colm + 1, count);
-        }
+    count++;
 
-        else if ((row < matr.GetLength(1) - 2) & (matr[row+1, colm] == 0))
-        {
-            FillMatrixSize(matr, row + 1, colm, count);
-        }
-        else if ((colm > 1) & (matr[row, colm-1] == 0))
-        {
-            FillMatrixSize(matr, row, colm - 1, count);
-        }
-        else if ((row > 1) & (matr[row-1, colm] == 0))
-        {
-            FillMatrixSize(matr, row-1, colm, count);
-        }        
+    if ((colm < matr.GetLength(1) - 2) & (matr[row, colm + 1] == 0))
+    {
+        matr[row, colm+1] = count;
+        FillMatrixSize(matr, row, colm + 1, count);
+    }
+
+    else if ((row < matr.GetLength(0) - 2) & (matr[row + 1, colm] == 0))
+    {
+        matr[row+1, colm] = count;
+        FillMatrixSize(matr, row + 1, colm, count);
+    }
+
+    else if ((colm > 1) & (matr[row, colm - 1] == 0))
+    {
+        matr[row, colm-1] = count;
+        FillMatrixSize(matr, row, colm - 1, count);
+    }
+
+    else if ((row > 1) & (matr[row-1, colm] == 0))
+    {
+        matr[row-1, colm] = count;
+        FillMatrixSize(matr, row-1, colm , count);
+    }
 
     return matr;
 }
