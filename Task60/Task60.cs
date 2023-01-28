@@ -10,7 +10,7 @@ Console.Clear();
 
 int[,,] Fill3DMatrix(int[,,] matr) // метод заполнения  3D матрицы случайными и не повторяющимися числами
 {
-    int[] mark = new int[91];
+    int[] mark = new int[150];
 
     int rndNum = 0;
     for (int i = 0; i < matr.GetLength(0); i++)
@@ -19,39 +19,39 @@ int[,,] Fill3DMatrix(int[,,] matr) // метод заполнения  3D мат
         {
             for (int k = 0; k < matr.GetLength(2); k++)
             {
-                rndNum = KeepOfNums(mark); // проверка на уникальность числа
-                mark = SaveOfNums(rndNum, mark); // заполнение массива уникальных чисел
+                rndNum = KeepOfNums(mark); // проверка на уникальность числа и генерация нового числа
+                mark = SaveOfNums(rndNum, mark); // заполнение массива уникальных чисел                
                 matr[i, j, k] = rndNum;
             }
 
         }
-    }
+    }  
+
     return matr;
 }
 int KeepOfNums(int[] arr)
 {
     int rndNum = 0;
     Random rnd = new Random();
-    bool mark = false;
-    while (mark == false)
+
+    while (true) // цикл, который не прирвется пока не сгенерирует уникальное число
     {
-        rndNum = rnd.Next(10, 100);
-        for (int n = 0; n < arr.Length; n++)
+        bool markForNum = true;
+        rndNum = rnd.Next(10, 100); // генерируем число для проверки его на уникальность
+        for (int i = 0; i < arr.Length; i++) // проверяющий цикл, находится ли число в массиве уникальных чисел
         {
-            if (arr[n] == rndNum)
+            if (rndNum == arr[i])
             {
-                continue;
-            }
-            else
-            {
-                mark = true;
+                markForNum = false;
             }
         }
+        if (markForNum == true) break;
     }
-    return rndNum;
+
+    return rndNum; // возвращается уникальное число
 }
 
-int[] SaveOfNums(int num, int[] arr)
+int[] SaveOfNums(int num, int[] arr) // массив заполнения уникальных чисел (0 принимается за null так как 0 не входит в диапазон генерации)
 {
     for (int i = 0; i < arr.Length; i++)
     {
@@ -65,7 +65,7 @@ int[] SaveOfNums(int num, int[] arr)
 }
 
 
-void Print3DMatrix(int[,,] matr) // метод вывода на экран 3D матрицу
+void Print3DMatrix(int[,,] matr) // метод вывода на экран 3D матрицу в виде N слайсов (разрезов)
 {
     for (int i = 0; i < matr.GetLength(0); i++)
     {
@@ -78,7 +78,7 @@ void Print3DMatrix(int[,,] matr) // метод вывода на экран 3D �
             Console.WriteLine();
         }
         Console.WriteLine();
-        
+
     }
 }
 int[,,] array3D = new int[4, 4, 4];
